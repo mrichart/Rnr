@@ -1,0 +1,30 @@
+--aux
+--ejecuta un s en la consola y devuelve la salida
+local run_shell = function(s)
+	local f = io.popen(s) -- runs command
+	local l = f:read("*a") -- read output of command
+	f:close()
+	return l
+end
+
+local function get_if_ip(iface)
+	local ifconfig = run_shell("ifconfig	" .. tostring(iface))
+	local ip=string.match(ifconfig, "inet addr:(%S+)") 
+	return ip
+end
+--local upstream_ip=string.match(eth0_ip, "^(%d+%.%d+%.%d+)%.%d+$")  .. ".1"
+--/aux
+
+local wlan0_ip=get_if_ip("wlan0")
+local eth0_ip=get_if_ip("eth0")
+
+--upstream[1] = wlan0_ip
+
+my_host = "127.0.0.1"
+
+
+newscast_round_time=math.huge --10
+
+subscription_dupe_window_size=5 --max amount of subscription_ids kept for dupe detection
+notification_dupe_window_size=5 --max amount of notification_ids kept for dupe detection
+

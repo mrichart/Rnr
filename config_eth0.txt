@@ -1,0 +1,27 @@
+--aux
+--ejecuta un s en la consola y devuelve la salida
+local run_shell = function(s)
+	local f = io.popen(s) -- runs command
+	local l = f:read("*a") -- read output of command
+	f:close()
+	return l
+end
+
+local function get_if_ip(iface)
+	local ifconfig = run_shell("ifconfig	" .. tostring(iface))
+	local ip=string.match(ifconfig, "inet addr:(%S+)") 
+	return ip
+end
+local eth0_ip=get_if_ip("eth0")
+local upstream_ip=string.match(eth0_ip, "^(%d+%.%d+%.%d+)%.%d+$")  .. ".1"
+--/aux
+
+
+
+my_host = eth0_ip
+
+if eth0_ip ~= upstream_ip then
+	upstream[1] = upstream_ip
+end
+
+

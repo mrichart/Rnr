@@ -1,0 +1,10 @@
+my_ip="172.16.185.1" --eth0_ip
+
+my_name= "172.16.185.1/rnr"
+
+upstream[1] = {"172.16.185.128", 8182}
+
+max_lines_in_message=150
+
+
+sockets_timeout=60*60*24
