@@ -339,7 +339,7 @@ end
 --read from the socket, store the lines in lines, and process once got a complete message
 function fhandler(skt)
  	local lines, operation 	
-	local line, error, partial
+	local line, err, partial
 	local ip, _ = skt:getpeername()
 
 	forwarder.register_client(skt)
@@ -352,13 +352,13 @@ function fhandler(skt)
   	while 1 do
    	 	--print("+++++")
 		if partial then
-        		line, error, partial = skt:receive("*l", partial)
+        		line, err, partial = skt:receive("*l", partial)
 		else
-        		line, error, partial = skt:receive()
+        		line, err, partial = skt:receive()
 		end
-		--print ("----", line, error, partial)
-        	if error =="closed" or (error == "timeout" and not partial) then 
-        		print("Closing!", error,skt:getpeername(), line)
+		--print ("----", line, err, partial)
+        	if err =="closed" or (err == "timeout" and not partial) then 
+        		print("Closing!", err,skt:getpeername(), line)
         		break
         	end
 		
