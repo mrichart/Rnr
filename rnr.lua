@@ -21,6 +21,10 @@ Republica, Uruguay.
 
 --]]
 
+package.path="rnr/?.lua;" .. package.path
+
+io.stdout:setvbuf("line")
+
 local configuration=require("configuration")
 if arg[1] then configuration.load(arg[1]) end
 local time_step=configuration.time_step
